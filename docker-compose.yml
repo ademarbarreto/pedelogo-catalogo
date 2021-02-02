@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+  pedelogo.catalogo.api:
+    image: kubedevio/pedelogocatalogoapi
+    build:
+      context: .
+      dockerfile: src/PedeLogo.Catalogo.Api/Dockerfile
+    ports:
+      - 8080:80
+    environment:
+      ASPNETCORE_URLS: http://+:80
+      Mongo__Host: mongodb
+      Mongo__User: mongouser
+      Mongo__Password: mongopwd
+      Mongo__Port: 27017
+      Mongo__DataBase: admin
+    networks:
+      - pedelogo_network
+  mongodb:
+    image: mongo:4.2.8
+    networks:
+      - pedelogo_network    
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: mongopwd
+networks: 
+  pedelogo_network: 
+    driver: bridge

@@ -47,9 +47,9 @@ namespace PedeLogo.Catalogo.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                c.SwaggerDoc("v2", new OpenApiInfo
                 {
-                    Version = "v1",
+                    Version = "v2",
                     Title = "API para cadastro de Produtos",
                     Description = "API para cadastro de Produtos"
                 });
@@ -74,18 +74,13 @@ namespace PedeLogo.Catalogo.Api
             app.UseHealthMiddleware();
 
             app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHealthChecks("/health");
-            });
-
             app.UseHttpMetrics();
 
             app.UseEndpoints(endpoints =>
-            {
+            {                
                 endpoints.MapControllers();
                 endpoints.MapMetrics();
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapGet("/read", async context =>
                 {
                     if (ConfigManager.IsRead())

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Prometheus.DotNetRuntime;
 
 namespace PedeLogo.Catalogo.Api
 {
@@ -13,6 +14,18 @@ namespace PedeLogo.Catalogo.Api
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Enabling prometheus-net.DotNetStats...");
+            DotNetRuntimeStatsBuilder.Customize()
+                .WithThreadPoolSchedulingStats()
+                .WithContentionStats()
+                .WithGcStats()
+                .WithJitStats()
+                .WithThreadPoolStats()
+                .WithExceptionStats()
+                .WithErrorHandler(ex => Console.WriteLine("ERROR: " + ex.ToString()))
+                //.WithDebuggingMetrics(true);
+                .StartCollecting();
+
             CreateHostBuilder(args).Build().Run();
         }
 
