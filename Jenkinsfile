@@ -10,7 +10,7 @@ pipeline {
        stage('Build Image') {
             steps {
                 script {
-                    dockerapp = docker.build("ademarbarretop/api-produto:${env.BUILS_ID}",
+                    dockerapp = docker.build("ademarbarretop/api-produto:${env.BUILD_NUMBER}",
                     '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                 }
             }
@@ -20,7 +20,7 @@ pipeline {
                 script {
                         docker.withRegistry('http://registry.hub.docker.com', 'dockerhub') {    
                         dockerapp.push('latest')
-                        dockerapp.push('${env.BUILS_ID}')  
+                        dockerapp.push('${env.BUILD_NUMEBER}')  
                      }   
                 }
             }
