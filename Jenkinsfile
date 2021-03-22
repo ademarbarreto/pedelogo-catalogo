@@ -10,7 +10,7 @@ pipeline {
        stage('Build Image') {
             steps {
                 script {
-                    dockerapp = docker.build("ademar.barretop/api-produto:${env.BUILS_ID",
+                    dockerapp = docker.build("ademar.barretop/api-produto:${env.BUILS_ID}",
                     '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                 }
             }
