@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                gii url: 'https://github.com/ademarbarreto/pedelogo-catalogo.git', branch: 'master'
+                git url: 'https://github.com/ademarbarreto/pedelogo-catalogo.git', branch: 'master'
             }
         }
        stage('Build Image') {
