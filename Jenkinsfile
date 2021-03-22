@@ -21,7 +21,7 @@ pipeline {
                         docker.withRegistry('http://registry.hub.docker.com', 'dockerhub') {    
                         dockerapp.push('latest')
                         dockerapp.push("1")  
-                    }   
+                     }   
                 }
             }
         }                        
