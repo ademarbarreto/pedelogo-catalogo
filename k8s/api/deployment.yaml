@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: ademarbarretp/api-produto:{{tag}}
+        resources: {}
+        ports:
+        - containerPort: 80
+        env:
+          - name: Mongo__Host
+            value: mongodb-service
+          - name: Mongo__User
+            value: mongodbuser
+          - name: Mongo__Password
+            value: mongodbpwd
+          - name: Mongo__Database
+            value: admin
